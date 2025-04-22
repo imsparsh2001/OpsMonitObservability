@@ -26,7 +26,21 @@ services:
     networks:
       - mern_network
     volumes:
-      - mongo-data:/data/db  
+      - mongo-data:/data/db 
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    networks:
+      - mern_network
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    restart: unless-stopped     
 
 networks:
   mern_network:
