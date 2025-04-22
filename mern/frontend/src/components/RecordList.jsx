@@ -41,7 +41,7 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/record/`);
+      const response = await fetch(`http://localhost:5050/record/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -51,11 +51,12 @@ export default function RecordList() {
       setRecords(records);
     }
     getRecords();
+    return;
   }, [records.length]);
 
   // This method will delete a record
   async function deleteRecord(id) {
-    await fetch(`${process.env.REACT_APP_API_URL}/record/${id}`, {
+    await fetch(`http://localhost:5050/record/${id}`, {
       method: "DELETE",
     });
     const newRecords = records.filter((el) => el._id !== id);
@@ -75,6 +76,7 @@ export default function RecordList() {
     });
   }
 
+  // This following section will display the table with the records of individuals.
   return (
     <>
       <h3 className="text-lg font-semibold p-4">Employee Records</h3>
